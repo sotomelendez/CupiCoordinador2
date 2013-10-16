@@ -8,8 +8,9 @@ class AsignacionController < ApplicationController
     @materia=Materia.find(params[:asign][:materia])
 	@semestre=Semestre.find(params[:asign][:semestre_id])
 	@cupos=Cupos.select("num_cupos").where("id_materia=#{params[:asign][:materia]}")
-	@asigna = Asignacion.select("count(*) as cuenta").where("id_materia=#{params[:asign][:materia]} AND id_semestre=#{params[:asign][:semestre_id]}")
-	if @asigna.first.cuenta==0
+	@asigna = Asignacion.where("id_materia=#{params[:asign][:materia]} AND id_semestre=#{params[:asign][:semestre_id]}").count
+	#@asigna = ActiveRecord::Base.connection.execute("select count(*) as cuenta from asignacions where id_materia=#{params[:asign][:materia]} AND id_semestre=#{params[:asign][:semestre_id]}")
+	if @asigna==0
 		redirect_to :action => 'ReservarPrograma',  :params => { :semestre => @semestre.id, :materia => @materia.id, :cupos => @cupos.first.num_cupos }
 	else
 		redirect_to :action => 'show',  :params => { :semestre => @semestre.id, :materia => @materia.id }

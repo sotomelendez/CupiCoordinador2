@@ -19,8 +19,10 @@ development:
   encoding: unicode
   database: CupiCoordinador3_development
   pool: 5
-  username: CupiCoordinador3
-  password:
+  #username: CupiCoordinador3
+  username: postgres
+  #password:
+  password: abc123
   host: localhost
   port: 5433
 
@@ -50,8 +52,10 @@ test:
   encoding: unicode
   database: CupiCoordinador3_test
   pool: 5
-  username: CupiCoordinador3
-  password:
+  #username: CupiCoordinador3
+  username: postgres
+  #password:
+  password: abc123
   host: localhost
   port: 5433
 
@@ -60,7 +64,9 @@ production:
   encoding: unicode
   database: CupiCoordinador3_production
   pool: 5
-  username: CupiCoordinador3
-  password:
+  #username: CupiCoordinador3
+  username: postgres
+  #password:
+  password: abc123
   host: localhost
   port: 5433
