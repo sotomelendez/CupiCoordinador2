@@ -1,0 +1,59 @@
+<div id="header">
+	<div id="menu" class="container">
+		<ul>
+			<li><%= link_to "HOME", root_path%></li>
+			<li><%= link_to "PENSUM TENTATIVO", estudiante_pensumtent_path%></li>
+			<li><%= link_to "SEMESTRE TENTATIVO", estudiante_semtent_path%></li>
+			<li><%= link_to "CONSOLIDADO", coordinador_consolidado_path%></li>
+			<li><%= link_to "ASIGNAR CUPOS", asignacion_seleccionar_path%></li>
+		</ul>
+	</div>
+</div>
+<div id="logo" class="container">
+	<h1><%= link_to (image_tag 'logo.png'), root_path%></a></h1>
+</div>
+<div id="page" class="container" align="center">
+	<!--<div id="content" align="center">-->
+		<div class="title">
+			<h2>Consolidado de informaci&oacute;n</h2>
+		</div>
+        <br />
+		<table>
+		<tr><%= link_to "Volver", coordinador_consolidado_path%></tr>
+		<tr></tr>
+		<tr><%= form_for(:consolidado, url: coordinador_show_materia_path) do |g| %>
+		<td><%= g.collection_select :materia, @materias, :id, :lineamateria %></td>
+		<td><%= g.submit "Filtrar por materia" %></td>
+		<% end %></tr>
+		</table>
+		<br/>
+		<table>
+		<tr><%= form_for(:consolidado, url: coordinador_show_materia_semestre_path) do |s| %>
+		<td><%= s.collection_select :materia, @materias, :id, :lineamateria %></td>
+		<td><%= s.collection_select :semestre_id, @semestres, :id, :id_sem %></td>
+		<td><%= s.submit "Filtrar por materia Y semestre" %></td>
+		<% end %></tr>
+		</table>
+		<br/>
+		<table border="1" width="800">
+    	    <tr><th>Semestre</th><th>C&oacute;digo Materia</th><th>Nombre Materia</th><th>Estudiantes</th></tr>
+			<% @porSemestre.each do |m| %>
+				<tr><td><%= m.id_sem %></td><td><%= m.idu %></td><td><%= m.nombre %></td><td><%= m.num_estud %></td></tr>
+			<% end %>
+        </table>
+	<!--</div>-->
+</div>
+
+<!--<div id="contact" class="container">
+		<div class="major">
+			<h2>Get in touch</h2>
+		</div>
+		<ul class="contact">
+			<li><a href="http://twitter.com/CupiCoordinador" class="icon icon-twitter"><span>Twitter</span></a></li>
+			<li><a href="#" class="icon icon-facebook"><span></span></a></li>
+			<li><a href="#" class="icon icon-rss"><span>Pinterest</span></a></li>
+		</ul>
+</div>-->
+<div id="copyright" class="container">
+	<p>Copyright (c) 2013 CupiCoordinador All rights reserved.</p>
+</div>

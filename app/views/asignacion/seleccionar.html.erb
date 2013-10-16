@@ -1,0 +1,35 @@
+<div id="header">
+	<div id="menu" class="container">
+		<ul>
+			<li><%= link_to "HOME", root_path%></li>
+			<li><%= link_to "PENSUM TENTATIVO", estudiante_pensumtent_path%></li>
+			<li><%= link_to "SEMESTRE TENTATIVO", estudiante_semtent_path%></li>
+			<li><%= link_to "CONSOLIDADO", coordinador_consolidado_path%></li>
+			<li><%= link_to "ASIGNAR CUPOS", asignacion_seleccionar_path%></li>
+		</ul>
+	</div>
+</div>
+<div id="logo" class="container">
+	<h1><%= link_to (image_tag 'logo.png'), root_path%></a></h1>
+</div>
+<div id="page" class="container" align="center">
+	<!--<div id="content" align="center">-->
+		<div class="title">
+			<h2>Asignaci&oacute;n de Cupos</h2>
+		</div>
+		<br/>
+		<table>
+		<%= form_for(:asign, url: asignacion_resultado_path) do |s| %>
+		<tr><td>Materia: </td>
+		<td><%= s.collection_select :materia, @materias, :id, :lineamateria %></td></tr>
+		<tr><td>Semestre: </td>
+		<td><%= s.collection_select :semestre_id, @semestres, :id, :id_sem %></td></tr>
+		<td><%= s.submit "Asignar cupos" %></td></tr>
+		<% end %>
+		</table>
+	<!--</div>-->
+</div>
+<div id="copyright" class="container">
+	<p>Copyright (c) 2013 CupiCoordinador All rights reserved.</p>
+</div>
+

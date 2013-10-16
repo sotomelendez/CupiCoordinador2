@@ -1,0 +1,34 @@
+<div id="header">
+	<div id="menu" class="container">
+		<ul>
+			<li><%= link_to "HOME", root_path%></li>
+			<li><%= link_to "PENSUM TENTATIVO", estudiante_pensumtent_path%></li>
+			<li><%= link_to "SEMESTRE TENTATIVO", estudiante_semtent_path%></li>
+			<li><%= link_to "CONSOLIDADO", coordinador_consolidado_path%></li>
+			<li><%= link_to "ASIGNAR CUPOS", asignacion_seleccionar_path%></li>
+		</ul>
+	</div>
+</div>
+<div id="logo" class="container" aling="center">
+	<h1><%= link_to (image_tag 'logo.png'), root_path%></h1>
+</div>
+<div id="page" class="container" align="center">
+	<div class="title">
+		<h2>Plan de estudios:</h2>
+	</div>
+	<table>
+	<%= form_for :pensum, url: estudiante_verpensum_path do |p| %>
+	<tr>
+	<td><%= p.label "Codigo de estudiante: " %></td>
+	<td><%= p.text_field :cod_stud %></td>
+	</tr>
+	<tr>
+	<td><%= p.submit "Ver pensum tentativo" %></td>
+	</tr>
+	<% end %>
+	</table>
+	<br/>
+</div>	
+<div id="copyright" class="container">
+	<p>Copyright (c) 2013 CupiCoordinador All rights reserved.</p>
+</div>

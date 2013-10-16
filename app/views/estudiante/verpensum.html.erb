@@ -1,0 +1,29 @@
+<div id="header">
+	<div id="menu" class="container">
+		<ul>
+			<li><%= link_to "HOME", root_path%></li>
+			<li><%= link_to "PENSUM TENTATIVO", estudiante_pensumtent_path%></li>
+			<li><%= link_to "SEMESTRE TENTATIVO", estudiante_semtent_path%></li>
+			<li><%= link_to "CONSOLIDADO", coordinador_consolidado_path%></li>
+			<li><%= link_to "ASIGNAR CUPOS", asignacion_seleccionar_path%></li>
+		</ul>
+	</div>
+</div>
+<div id="logo" class="container" align="center">
+	<h1><%= link_to (image_tag 'logo.png'), root_path %></h1>
+</div>
+<div id="page" class="container" align="center">
+	<div class="title">
+		<h2>Plan de estudios tentativo:</h2>
+	</div>
+	<br/>
+	<table border="1">
+	<tr><th>Semestre</th><th>C&oacute;digo Materia</th><th>Nombre materia</th></tr>
+	<% @pensum.each do |pen| %>
+	<tr><td><%= pen.id_sem %></td><td><%= pen.idu %></td><td><%= pen.nombre %></td></tr>
+	<% end %>
+	</table>
+</div>
+<div id="copyright" class="container">
+	<p>Copyright (c) 2013 CupiCoordinador All rights reserved.</p>
+</div>
