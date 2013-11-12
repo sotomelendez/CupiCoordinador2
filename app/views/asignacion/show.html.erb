@@ -1,35 +1,116 @@
-<div id="header">
-	<div id="menu" class="container">
-		<ul>
-			<li><%= link_to "HOME", root_path%></li>
-			<li><%= link_to "PENSUM TENTATIVO", estudiante_pensumtent_path%></li>
-			<li><%= link_to "SEMESTRE TENTATIVO", estudiante_semtent_path%></li>
-			<li><%= link_to "CONSOLIDADO", coordinador_consolidado_path%></li>
-			<li><%= link_to "ASIGNAR CUPOS", asignacion_seleccionar_path%></li>
-		</ul>
-	</div>
-</div>
-<div id="logo" class="container">
-	<h1><%= link_to (image_tag 'logo.png'), root_path%></a></h1>
-</div>
+
+
 <div id="page" class="container" align="center">
 	<!--<div id="content">-->
 		<div class="title">
 			<h2>Asignaci&oacute;n de Cupos</h2>
 		</div>
 		<br/>
-		<%= link_to "Volver", asignacion_seleccionar_path%>
+		
 		<br />
 		<br />
-		<p>Asignaci&oacute;n para la materia <%= @materia.idu + " - " + @materia.nombre %> en el semestre <%= @semestre.id_sem %>:</p>
-		<table border="1">
+		<p>Asignaci&oacute;n autom&oacute;atica para la materia <%= @materia.idu + " - " + @materia.nombre %> en el <%= @semestre.id_sem%>:</p>
+		
+ <div class="liquid-slider"  id="main-slider">
+   
+ <div>
+      <h2 class="title">Resumen</h2>
+
+<div>
+<br>
+<b>Estudiantes totales: <%= @resultado.count %>, Cupos de la Materia: <%= @cupos%> , Semestre: <%= @semestre.id_sem%></b> (<%= link_to (image_tag 'Red_Point.gif',:size=>"10x10")%> Estudiante antiguo)<br>
+<% @resultado.each do |elem| %>
+<div class="img">
+
+<%= link_to (image_tag 'blank_avatar.jpg',:size=>"60x70")%>
+<div class="desc">
+
+<%= elem.name%><br>
+<%= elem.cod_maest%><br>
+<%= elem.apellidos%><br>
+<%if @semestre.id_sem.to_i - elem.apellidos.to_i >= 400%>
+<%= link_to (image_tag 'Red_Point.gif',:size=>"10x10")%>
+<%end%>
+
+</div>
+
+
+</div>
+<%end%>
+</div>
+
+
+      
+ </div>
+ <div>
+      <h2 class="title">Lista De Estudiantes</h2>
+      <table border="1" cellspacing="0">
 		<tr><th>C&oacute;digo</th><th>Nombre</th><th>Programa</th></tr>
 		<% @resultado.each do |elem| %>
-			<tr><td><%= elem.stud_id %></td><td><%= elem.name %></td><td><%= elem.cod_maest + " - " + elem.maest %></td></tr>
+			<tr><td><%= elem.stud_id %></td><td><%= elem.name + " " %></td><td><%= elem.cod_maest + " - " + elem.maest %></td></tr>
 		<% end %>
 		</table>
-	<!--</div>-->
+    </div>
+    <div>
+      <h2 class="title">Asignaci&oacute;n de estudiantes por Programa</h2>
+      <div id="piechart" style="width: 900px; height: 500px;"></div>
+</div> 
+
+    <div>
+      <h2 class="title">Asignaci&oacute;n de estudiantes por Antiguedad</h2>
+      <div id="piechartt" style="width: 900px; height: 500px;"></div>
+</div>           
+ 
+
+  </div>
+
+<br>
+<a href="javascript:history.back()">Volver</a>
 </div>
+
+
+    <script type="text/javascript">
+      
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+            var lsto = new Array();
+        
+         var sum = 0;
+         <% @resultado.each do |elem| %>
+		<%if @semestre.id_sem.to_i - elem.apellidos.to_i >= 400%>
+                    sum++;
+                <%end%>	
+          <% end %>
+           lsto.push(["Estudiantes","Cuenta"]);
+          lsto.push(["Resto de Estudiantes",<%=@resultado.count%> - sum]);
+          lsto.push(["Estudiantes Ultimo Semestre o Antiguos",sum]);
+          
+        var datao = google.visualization.arrayToDataTable(lsto);
+        var charto = new google.visualization.PieChart(document.getElementById('piechartt'));
+        charto.draw(datao, { backgroundColor: { fill: "#F2F2F2" } });
+
+      var lst = new Array();
+      lst.push(["Estudiantes","Cuenta"]);
+      <% @asignaciones.each do |elemm| %>
+         
+    
+        lst.push(["<%=elemm.maest%>",<%=elemm.ct%>]);
+      <% end %>
+
+        var data = google.visualization.arrayToDataTable(lst);
+
+       
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, { backgroundColor: { fill: "#F2F2F2" } });
+
+      
+$('#main-slider').liquidSlider();
+      }
+     
+      
+    </script>
+
 <div id="copyright" class="container">
 	<p>Copyright (c) 2013 CupiCoordinador All rights reserved.</p>
 </div>

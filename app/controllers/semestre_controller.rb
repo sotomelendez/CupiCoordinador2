@@ -7,6 +7,7 @@ def new
 end
 @registro=EstudianteMateriaPeriodo.new(:id_estudiante=>@id_estudiante, :id_materia=>params[:semestre][:materia],:id_semestre=>params[:semestre][:semestre_id])
 @registro.save
+redirect_to :action => 'verpensum', :controller=>'estudiante',  :params => { :pensum =>{:cod_stud => params[:semestre][:cod_stud]}}
 end
 
 def show

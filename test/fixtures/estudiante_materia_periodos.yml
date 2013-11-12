@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  estudiante_id: 
+  materia_id: 
+  periodo_id: 
+
+two:
+  estudiante_id: 
+  materia_id: 
+  periodo_id: 
